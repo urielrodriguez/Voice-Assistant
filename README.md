@@ -22,8 +22,8 @@ the console), which consists of four randomly selected exercises from the specif
 * Triceps
 
 ## Exercise Data
-The exercises where obtained by web scraping the following website: https://www.aworkoutroutine.com/list-of-exercises-for-each-muscle-group/
-The tool used for web scraping was [Parsehub](https://www.parsehub.com/)
+* The exercises where obtained by web scraping the following website: https://www.aworkoutroutine.com/list-of-exercises-for-each-muscle-group/
+* The tool used for web scraping was [Parsehub](https://www.parsehub.com/)
 
 ## Dependencies
 * pip install speechrecognition
