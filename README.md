@@ -22,21 +22,18 @@ the console), which consists of four randomly selected exercises from the specif
 * Triceps
 
 ### "Nutrition" Command
-Provides nutritional information on specific types of food. The first response will be "What type of food do you want nutritional information for?". Simply respond with the desired food group. The current food groups available are:
-* Dairy 
-* Meat
-* Seafood
-The second response will be "What specific *food group provided* product are you looking for?". Simply respond the the desired food. 
-The current food products available are:
+Provides nutritional information on specific types of food. The first response will be "What type of food do you want nutritional information for?". Simply respond with the desired food group. The second response will be "What specific *food group provided* product are you looking for?". Simply respond the the desired food. The current food groups and products available are:
 * Dairy: Whole cow milk
 * Meat: Roasted Turkey
 * Seafood: Canned Salmon
 
-## Exercise Data
+## Data
+
+### Exercise Data
 * The exercises where obtained by web scraping the following website: https://www.aworkoutroutine.com/list-of-exercises-for-each-muscle-group/
 * The tool used for web scraping was [Parsehub](https://www.parsehub.com/)
 
-## Nutrition Data
+### Nutrition Data
 I created a small database using MySQL that contains all the nutrition data and decided to host is locally given its small size. Therefore, to use the 'nutrition' command, it is necessary to download MySQL. After, simply uncomment all the code related to the 
 database, as well as the code pertaining to the actual command. The data for this function was obtained on the following website: 
 https://en.wikipedia.org/wiki/Table_of_food_nutrients
