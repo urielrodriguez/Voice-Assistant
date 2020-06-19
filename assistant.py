@@ -9,11 +9,72 @@ from gtts import gTTS
 import requests
 import json
 import random
+#import mysql.connector
+
+#######################################
+# NUTRITION DATA / DATABASE (MYSQL) 
+#######################################
+
+#db = mysql.connector.connect(
+#    host='',
+#    user='',
+#    passwd='',
+#    database='nutrition'
+#)
+
+#mycursor = db.cursor()
+
+#mycursor.execute("CREATE DATABASE nutrition")
+
+#dairy = [
+#    {'food':'whole cow milk', 'measure':'1 quart', 'grams':976, 'calories':660, 'protein': 32, 'carbohydrates':48, 'fiber':0, 'fat':40, 'saturated_fat':36}
+#]
+
+#meat = [
+#    {'food':'roasted turkey', 'measure':'3 and a half ounces', 'grams':100, 'calories':265, 'protein':27, 'carbohydrates':0, 'fiber':0, 'fat':15, 'saturated_fat':0}
+#]
+
+#seafood = [
+#    {'food':'canned salmon', 'measure':'3 ounces', 'grams':85, 'calories':120, 'protein':17, 'carbohydrates':0, 'fiber':0, 'fat':5, 'saturated_fat':1}
+#]
+
+#mycursor.execute("CREATE TABLE Dairy (food varchar(50), measure varchar(50), grams int, calories int, protein int, carbohydrates int, fiber int, fat int, saturate_fat int)")
+#mycursor.execute("CREATE TABLE Meat (food varchar(50), measure varchar(50), grams int, calories int, protein int, carbohydrates int, fiber int, fat int, saturate_fat int)")
+#mycursor.execute("CREATE TABLE Seafood (food varchar(50), measure varchar(50), grams int, calories int, protein int, carbohydrates int, fiber int, fat int, saturate_fat int)")
+
+#for x in dairy:
+#    mycursor.execute(
+#        "INSERT INTO Dairy (food, measure, grams, calories, protein, carbohydrates, fiber, fat, saturate_fat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+#        (x['food'], x['measure'], x['grams'], x['calories'], x['protein'], x['carbohydrates'], x['fiber'], x['fat'], x['saturated_fat']) 
+#    )
+#    db.commit()
+
+#for x in meat:
+#    mycursor.execute(
+#        "INSERT INTO Meat (food, measure, grams, calories, protein, carbohydrates, fiber, fat, saturate_fat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+#        (x['food'], x['measure'], x['grams'], x['calories'], x['protein'], x['carbohydrates'], x['fiber'], x['fat'], x['saturated_fat']) 
+#    )
+#    db.commit()
+
+#for x in seafood:
+#    mycursor.execute(
+#        "INSERT INTO Seafood (food, measure, grams, calories, protein, carbohydrates, fiber, fat, saturate_fat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+#        (x['food'], x['measure'], x['grams'], x['calories'], x['protein'], x['carbohydrates'], x['fiber'], x['fat'], x['saturated_fat']) 
+#    )
+#    db.commit()
+
+#######################################
+# MAIN VARIABLES
+#######################################
 
 API_KEY = 'tOAT_LJ153Wb'
 PROJECT_TOKEN = 'tc1GAbc7iYbD'
 
 r = sr.Recognizer()
+
+#######################################
+# WORKOUT DATA (WEB SCRAPING)
+#######################################
 
 class Workout:
     def __init__(self, api_key, project_token):
@@ -42,6 +103,28 @@ class Workout:
         for i in range(4):
             workout.append(exercises[i])
         return workout
+
+#######################################
+# NUTRITION COMMAND HELPER METHOD
+#######################################
+
+def get_nutrient(i):
+    if i == 3:
+        return 'calories'
+    if i == 4:
+        return 'protein'
+    if i == 5:
+        return 'carbohydrates'
+    if i == 6:
+        return 'fiber'
+    if i == 7:
+        return 'fat'
+    if i == 8:
+        return 'saturated fat'
+
+#######################################
+# VOICE ASSISTANT METHODS
+#######################################
 
 def record_audio(ask=False):
     with sr.Microphone() as mic:
@@ -86,6 +169,31 @@ def respond(voice_data):
             speak(exercise)
             print(exercise)
         speak('Have a great workout!')
+#    if 'nutrition' in voice_data:
+#        food_group = record_audio('What type of food do you want nutritional information for?')
+#        if food_group == 'meet':
+#            food_group = 'meat'
+#        print('You said: ' + food_group)
+#        food = record_audio('What specific ' + food_group + ' product are you looking for?')
+#        print('You said: ' + food)
+#        query = "SELECT * FROM " + food_group + " WHERE food = '" + food + "'"
+#        mycursor.execute(query)
+#       speak('Here are the nutritional facts for ' + food)
+#        print('Here are the nutritional facts for ' + food)
+#        for x in mycursor:
+#            speak(x[1] + ' or ' + str(x[2]) + ' grams of ' + food + ' contains:')
+#            print(x[1] + ' or ' + str(x[2]) + ' grams of ' + food + ' contains:')
+#            for i in range(3, 9):
+#                nutrient = get_nutrient(i)
+#               if i == 3:
+#                    speak(str(x[i]) + nutrient)
+#                    print(str(x[i]) + nutrient)
+#                elif i == 8:
+#                   speak('and ' + str(x[i]) + ' grams of ' + nutrient) 
+#                   print('and ' + str(x[i]) + ' grams of ' + nutrient)
+#               else:   
+#                   speak(str(x[i]) + ' grams of ' + nutrient)
+#                    print(str(x[i]) + ' grams of ' + nutrient)
 
 def speak(audio_string):
     tts = gTTS(text=audio_string, lang='en')
@@ -94,6 +202,10 @@ def speak(audio_string):
     tts.save(audio_file)
     playsound.playsound(audio_file)
     os.remove(audio_file)
+
+#######################################
+# COMMAND LINE OUTPUT / LOOP
+#######################################
 
 print('Listening...')
 time.sleep(1)
