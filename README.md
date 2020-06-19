@@ -35,7 +35,7 @@ Provides nutritional information on specific types of food. The first response w
 
 ### Nutrition Data
 I created a small database using MySQL that contains all the nutrition data and decided to host is locally given its small size. Therefore, to use the 'nutrition' command, it is necessary to download MySQL. After, simply uncomment all the code related to the 
-database, as well as the code pertaining to the actual command. The data for this function was obtained on the following website: 
+database, as well as the code pertaining to the actual command. The data for this function was obtained from the following website: 
 https://en.wikipedia.org/wiki/Table_of_food_nutrients
 
 ## Dependencies
